@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Guess the Number Game</h1>
+    <p>Guess a number between 1 and 100:</p>
+    <input type="text" id="guessInput">
+    <button onclick="checkGuess()">Submit Guess</button>
+    <p id="message"></p>
+
+    <script>
+        // Generate a random number between 1 and 100
+        const randomNumber = Math.floor(Math.random() * 100) + 1;
+        console.log(randomNumber); // For debugging purposes
+
+        let attempts = 0;
+
+        function checkGuess() {
+            const guess = parseInt(document.getElementById('guessInput').value);
+            attempts++;
+
+            if (isNaN(guess) || guess < 1 || guess > 100) {
+                setMessage('Please enter a valid number between 1 and 100.', 'red');
+                return;
+            }
+
+            if (guess === randomNumber) {
+                setMessage(`Congratulations! You guessed the number ${randomNumber} correctly in ${attempts} attempts.`, 'green');
+                document.getElementById('guessInput').setAttribute('disabled', true);
+            } else {
+                const message = guess < randomNumber ? 'Too low! Try again.' : 'Too high! Try again.';
+                setMessage(message, 'red');
+            }
+        }
+
+        function setMessage(message, color) {
+            document.getElementById('message').textContent = message;
+            document.getElementById('message').style.color = color;
+        }
+    </script>
+</body>
+</html>
